@@ -1,226 +1,308 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n';
-import { galleryImages } from '@/data/school';
-import type { GalleryImage } from '@/types';
+import { galleryEvents } from '@/data/school';
+import { fadeUp, overlayVariants, modalVariants } from '@/lib/motionVariants';
+import type { GalleryEvent } from '@/types';
 
-function PlaceholderImage({ image, onClick }: { image: GalleryImage; onClick: () => void }) {
+function EventDetailModal({
+  event,
+  onClose,
+}: {
+  event: GalleryEvent;
+  onClose: () => void;
+}) {
   const { t } = useLanguage();
-  const colors = ['#EEF5EF', '#FDF1E0', '#F0F4FF', '#FFF5EE', '#F5F0FF', '#EEFAF5'];
-  const idx = parseInt(image.id.replace('g', '')) - 1;
-  const bg = colors[idx % colors.length];
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [onClose]);
 
   return (
-    <button
-      onClick={onClick}
-      className="w-full rounded-xl overflow-hidden relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-orange)]"
-      style={{
-        aspectRatio: image.span === 'tall' ? '3/4' : '4/3',
-        backgroundColor: bg,
-        border: '1px solid var(--color-brand-border)',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        gap: '8px',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-      }}
-      aria-label={`Open gallery image: ${t(image.altKey as Parameters<typeof t>[0])}`}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.02)';
-        (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)';
-        (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none';
-      }}
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      variants={overlayVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      onClick={onClose}
+      style={{ backgroundColor: 'rgba(0,0,0,0.88)' }}
+      role="dialog"
+      aria-modal="true"
+      aria-label={t('gallery.eventDetail')}
     >
-      <span className="text-2xl" aria-hidden="true">📷</span>
-      <span
-        className="text-xs font-medium text-center px-3"
-        style={{ color: 'var(--color-brand-muted)', fontFamily: 'var(--font-body)' }}
+      <motion.div
+        variants={modalVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full overflow-hidden"
+        style={{
+          maxWidth: '700px',
+          backgroundColor: 'var(--color-bg)',
+          border: '1px solid var(--color-border)',
+        }}
       >
-        {t(image.altKey as Parameters<typeof t>[0])}
-      </span>
-      <span
-        className="text-xs text-center px-3"
-        style={{ color: 'rgba(107,114,128,0.6)', fontFamily: 'var(--font-body)' }}
-      >
-        [PLACEHOLDER]
-      </span>
-    </button>
+        {/* Image */}
+        <div className="relative" style={{ aspectRatio: '16/9' }}>
+          <Image
+            src={event.imageSrc}
+            alt={t(event.titleKey as Parameters<typeof t>[0])}
+            fill
+            className="object-cover"
+            sizes="700px"
+          />
+          {/* Geotag */}
+          <span
+            className="absolute bottom-3 left-3 px-2 py-1 text-xs font-medium"
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.7)',
+              color: '#fff',
+              fontFamily: 'var(--font-body)',
+              fontSize: '11px',
+            }}
+          >
+            {event.geoTag}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="p-8">
+          <p
+            className="mb-2"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.7rem',
+              fontWeight: 600,
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: 'var(--color-terracotta)',
+            }}
+          >
+            {t(event.dateKey as Parameters<typeof t>[0])}
+          </p>
+          <h3
+            className="mb-4"
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: '1.5rem',
+              fontWeight: 700,
+              color: 'var(--color-dark)',
+            }}
+          >
+            {t(event.titleKey as Parameters<typeof t>[0])}
+          </h3>
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.95rem',
+              color: 'var(--color-muted)',
+              lineHeight: 1.7,
+            }}
+          >
+            {t(event.descriptionKey as Parameters<typeof t>[0])}
+          </p>
+          <p
+            className="mt-4"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.8rem',
+              color: 'var(--color-olive)',
+              fontWeight: 600,
+            }}
+          >
+            📍 {event.location}
+          </p>
+        </div>
+
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 text-white/70 hover:text-white transition-colors duration-200"
+          aria-label={t('gallery.close')}
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+          </svg>
+        </button>
+      </motion.div>
+    </motion.div>
   );
 }
 
 export default function Gallery() {
   const { t } = useLanguage();
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<GalleryEvent | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const closeModal = useCallback(() => setSelectedEvent(null), []);
 
-  const goNext = useCallback(() => {
-    setLightboxIndex((i) => (i !== null ? (i + 1) % galleryImages.length : null));
-  }, []);
-
-  const goPrev = useCallback(() => {
-    setLightboxIndex((i) => (i !== null ? (i - 1 + galleryImages.length) % galleryImages.length : null));
-  }, []);
-
+  // Prevent body scroll when modal open
   useEffect(() => {
-    if (lightboxIndex === null) return;
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') goNext();
-      if (e.key === 'ArrowLeft') goPrev();
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, [lightboxIndex, closeLightbox, goNext, goPrev]);
-
-  // Prevent body scroll when lightbox is open
-  useEffect(() => {
-    document.body.style.overflow = lightboxIndex !== null ? 'hidden' : '';
+    document.body.style.overflow = selectedEvent ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [lightboxIndex]);
+  }, [selectedEvent]);
 
   return (
     <section
       id="gallery"
       className="section-padding"
-      style={{ backgroundColor: 'var(--color-brand-bg)' }}
+      style={{ backgroundColor: '#fff' }}
       aria-labelledby="gallery-heading"
     >
-      <div className="mx-auto px-5" style={{ maxWidth: '1200px' }}>
+      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '1200px' }}>
         <motion.p
-          className="section-label mb-3 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="section-label mb-3"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
         >
           {t('gallery.sectionTitle')}
         </motion.p>
 
         <motion.h2
           id="gallery-heading"
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="mb-4"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)',
+            fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
             fontWeight: 700,
-            color: 'var(--color-brand-dark)',
+            color: 'var(--color-dark)',
           }}
         >
           {t('gallery.heading')}
         </motion.h2>
 
-        {/* Masonry grid */}
-        <div className="masonry-grid" role="list" aria-label="School gallery">
-          {galleryImages.map((image, i) => (
-            <motion.div
-              key={image.id}
-              className="masonry-item"
-              role="listitem"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-            >
-              <PlaceholderImage image={image} onClick={() => setLightboxIndex(i)} />
-            </motion.div>
-          ))}
-        </div>
-
-        <p
-          className="text-center mt-6 text-xs"
-          style={{ color: 'var(--color-brand-muted)', fontFamily: 'var(--font-body)' }}
-        >
-          Gallery images are placeholders. Add real school photos to <code>/public/images/gallery/</code>
-        </p>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{
+            width: '60px',
+            height: '1px',
+            backgroundColor: 'var(--color-terracotta)',
+            marginBottom: '3rem',
+          }}
+          aria-hidden="true"
+        />
       </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxIndex !== null && (
-          <motion.div
-            className="lightbox-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            onClick={closeLightbox}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Image lightbox"
-          >
-            <button
-              className="absolute top-4 right-4 text-white/80 hover:text-white p-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              onClick={closeLightbox}
-              aria-label="Close lightbox"
+      {/* Horizontal carousel */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div
+          ref={scrollContainerRef}
+          className="gallery-scroll flex gap-5 overflow-x-auto px-6 md:px-10 pb-4"
+          style={{ scrollSnapType: 'x mandatory' }}
+          role="list"
+          aria-label="Gallery carousel"
+        >
+          {galleryEvents.map((event, i) => (
+            <motion.button
+              key={event.id}
+              role="listitem"
+              onClick={() => setSelectedEvent(event)}
+              className="group flex-shrink-0 relative overflow-hidden transition-all duration-300"
+              style={{
+                width: 'clamp(260px, 30vw, 340px)',
+                aspectRatio: '3/4',
+                border: '1px solid var(--color-border)',
+                scrollSnapAlign: 'start',
+              }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              whileHover={{ y: -4 }}
+              aria-label={`View: ${t(event.titleKey as Parameters<typeof t>[0])}`}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </button>
+              {/* Image */}
+              <Image
+                src={event.imageSrc}
+                alt={t(event.titleKey as Parameters<typeof t>[0])}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="340px"
+              />
 
-            <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
-              onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              aria-label="Previous image"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path d="M13 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-
-            <motion.div
-              key={lightboxIndex}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col items-center gap-4"
-              onClick={(e) => e.stopPropagation()}
-              style={{ maxWidth: '600px', width: '90vw' }}
-            >
+              {/* Overlay gradient — bottom */}
               <div
-                className="w-full rounded-2xl flex items-center justify-center flex-col gap-3"
+                className="absolute inset-0"
                 style={{
-                  aspectRatio: '4/3',
-                  backgroundColor: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.2)',
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)',
+                }}
+                aria-hidden="true"
+              />
+
+              {/* Geotag — top left */}
+              <span
+                className="absolute top-3 left-3 px-2 py-1 text-xs"
+                style={{
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                  color: 'rgba(255,255,255,0.9)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  letterSpacing: '0.05em',
                 }}
               >
-                <span className="text-4xl" aria-hidden="true">📷</span>
-                <p className="text-white/80 text-sm" style={{ fontFamily: 'var(--font-body)' }}>
-                  {t(galleryImages[lightboxIndex].altKey as Parameters<typeof t>[0])}
-                </p>
-                <p className="text-white/40 text-xs">[PLACEHOLDER — Add real image]</p>
-              </div>
-              <p className="text-white/50 text-xs" style={{ fontFamily: 'var(--font-body)' }}>
-                {lightboxIndex + 1} / {galleryImages.length}
-              </p>
-            </motion.div>
+                {event.geoTag}
+              </span>
 
-            <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
-              onClick={(e) => { e.stopPropagation(); goNext(); }}
-              aria-label="Next image"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </motion.div>
+              {/* Title — bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <p
+                  className="mb-1"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '10px',
+                    fontWeight: 600,
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-terracotta)',
+                  }}
+                >
+                  {t(event.dateKey as Parameters<typeof t>[0])}
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    color: '#fff',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {t(event.titleKey as Parameters<typeof t>[0])}
+                </p>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Event detail modal */}
+      <AnimatePresence>
+        {selectedEvent && (
+          <EventDetailModal event={selectedEvent} onClose={closeModal} />
         )}
       </AnimatePresence>
     </section>

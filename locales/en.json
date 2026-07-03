@@ -1,21 +1,51 @@
 {
   "nav": {
     "home": "Home",
-    "about": "About",
-    "leadership": "Leadership",
+    "vision": "Our Vision",
     "gallery": "Gallery",
+    "amenities": "Amenities",
+    "staff": "Our Team",
+    "principal": "Principal",
     "contact": "Contact"
   },
   "hero": {
     "tagline": "Knowledge · Character · Service",
     "description": "Government Senior Secondary School, Trilokpur — proudly serving the Surla region of Sirmaur, Himachal Pradesh since 1958.",
-    "scrollDown": "Scroll Down"
+    "scrollDown": "Scroll Down",
+    "established": "Est. 1958",
+    "location": "Sirmaur, Himachal Pradesh"
   },
   "stats": {
     "established": "Established",
     "teachers": "Teachers",
     "classes": "Classes",
     "location": "Location"
+  },
+  "vision": {
+    "sectionTitle": "Our Vision",
+    "heading": "The Values That Guide Us",
+    "mission": "Our Mission",
+    "missionText": "To provide quality education that empowers students with knowledge, values, and life skills to become responsible citizens of tomorrow.",
+    "visionLabel": "Our Vision",
+    "visionText": "To be a centre of academic excellence and character development, rooted in our cultural heritage and open to the opportunities of the modern world.",
+    "values": {
+      "excellence": {
+        "title": "Academic Excellence",
+        "desc": "Consistent results under the HP State Board with dedicated teachers committed to quality instruction from Grade VI to XII."
+      },
+      "character": {
+        "title": "Character Building",
+        "desc": "Education that goes beyond textbooks — nurturing integrity, discipline, and a strong moral compass in every student."
+      },
+      "community": {
+        "title": "Community Service",
+        "desc": "Midday meal programmes, awareness drives, and outreach initiatives that keep us connected with the families we serve."
+      },
+      "heritage": {
+        "title": "Cultural Heritage",
+        "desc": "Annual celebrations of national festivals and local traditions keep students connected to their Himachali roots."
+      }
+    }
   },
   "about": {
     "sectionTitle": "About Our School",
@@ -27,6 +57,84 @@
     "missionText": "To provide quality education that empowers students with knowledge, values, and life skills to become responsible citizens of tomorrow.",
     "vision": "Vision",
     "visionText": "To be a centre of academic excellence and character development, rooted in our cultural heritage and open to the opportunities of the modern world."
+  },
+  "gallery": {
+    "sectionTitle": "Gallery",
+    "heading": "Life at GSSS Trilokpur",
+    "img1": "School Building",
+    "img2": "Classroom Activity",
+    "img3": "Students at Play",
+    "img4": "Annual Function",
+    "img5": "Library",
+    "img6": "Morning Assembly",
+    "events": {
+      "assembly": {
+        "title": "Morning Assembly",
+        "date": "Daily · 8:30 AM",
+        "desc": "Students gather every morning for the school assembly, where prayers, the national anthem, and important announcements set the tone for the day."
+      },
+      "sports": {
+        "title": "Annual Sports Day",
+        "date": "March 2024",
+        "desc": "An exciting day of track and field events, cricket matches, and team sports that celebrate physical fitness and sportsmanship."
+      },
+      "cultural": {
+        "title": "Cultural Festival",
+        "date": "November 2024",
+        "desc": "Students perform traditional Himachali folk dances, music, and drama, showcasing the rich cultural heritage of the region."
+      },
+      "classroom": {
+        "title": "Classroom Learning",
+        "date": "Throughout the Year",
+        "desc": "Engaging classroom sessions led by our dedicated faculty, with focus on interactive learning and conceptual understanding."
+      },
+      "library": {
+        "title": "Library Sessions",
+        "date": "Weekly",
+        "desc": "Students explore our collection of 1,498 books during dedicated library periods, fostering a love for reading and self-learning."
+      },
+      "republic": {
+        "title": "Republic Day Celebration",
+        "date": "26 January 2025",
+        "desc": "The tricolour is hoisted with pride as students, teachers, and the community come together to honour the spirit of the Indian Republic."
+      }
+    },
+    "eventDetail": "Event Details",
+    "close": "Close"
+  },
+  "amenities": {
+    "sectionTitle": "Amenities",
+    "heading": "School Infrastructure",
+    "library": {
+      "title": "Library"
+    },
+    "playground": {
+      "title": "Playground"
+    },
+    "classrooms": {
+      "title": "Classrooms"
+    },
+    "electricity": {
+      "title": "Electricity"
+    },
+    "water": {
+      "title": "Drinking Water"
+    },
+    "sanitation": {
+      "title": "Sanitation"
+    }
+  },
+  "staff": {
+    "sectionTitle": "Our Team",
+    "heading": "Meet the Staff",
+    "totalStaff": "21 Dedicated Teachers",
+    "maleStaff": "9 Male",
+    "femaleStaff": "12 Female"
+  },
+  "principalMessage": {
+    "sectionTitle": "From the Principal",
+    "heading": "A Message of Guidance",
+    "label": "Principal's Message"
   },
   "leadership": {
     "sectionTitle": "Our Leadership",
@@ -52,16 +160,6 @@
       "title": "Community Engagement",
       "desc": "Midday meal programme, awareness drives, and community outreach initiatives keep us connected with the families we serve."
     }
-  },
-  "gallery": {
-    "sectionTitle": "Gallery",
-    "heading": "Life at GSSS Trilokpur",
-    "img1": "School Building",
-    "img2": "Classroom Activity",
-    "img3": "Students at Play",
-    "img4": "Annual Function",
-    "img5": "Library",
-    "img6": "Morning Assembly"
   },
   "quote": {
     "text": "Education is the most powerful weapon which you can use to change the world.",

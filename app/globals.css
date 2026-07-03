@@ -2,19 +2,20 @@
 
 /* ─── Design Tokens ─────────────────────────────────────────── */
 @theme inline {
-  /* Colors */
-  --color-brand-bg:     #FAF8F4;
-  --color-brand-orange: #F4B66A;
-  --color-brand-green:  #84B88A;
-  --color-brand-dark:   #2B2B2B;
-  --color-brand-muted:  #6B7280;
-  --color-brand-border: #E5E0D8;
-  --color-brand-orange-light: #FDF1E0;
-  --color-brand-green-light:  #EEF5EF;
+  /* Colors — off-white, terracotta, olive */
+  --color-bg:          #FAF7F2;
+  --color-cream:       #F5EDE3;
+  --color-terracotta:  #C8845E;
+  --color-terracotta-dark: #A86B45;
+  --color-olive:       #6B7F5E;
+  --color-olive-light: #8FA07E;
+  --color-dark:        #1E1E1E;
+  --color-muted:       #7A7468;
+  --color-border:      #E2DCD4;
 
   /* Fonts */
-  --font-heading: 'Poppins', sans-serif;
-  --font-body:    'Inter', sans-serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Source Sans 3', 'Helvetica Neue', sans-serif;
 }
 
 /* ─── Base Reset ─────────────────────────────────────────────── */
@@ -28,45 +29,69 @@ html {
 }
 
 body {
-  background-color: var(--color-brand-bg);
-  color: var(--color-brand-dark);
+  background-color: var(--color-bg);
+  color: var(--color-dark);
   font-family: var(--font-body);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  line-height: 1.25;
-  color: var(--color-brand-dark);
+  line-height: 1.2;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }
 
 /* ─── Focus States ──────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--color-brand-orange);
+  outline: 2px solid var(--color-terracotta);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
 /* ─── Scrollbar ─────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-brand-bg);
+  background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-brand-border);
-  border-radius: 3px;
+  background: var(--color-border);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-muted);
+  background: var(--color-muted);
 }
 
 /* ─── Selection ─────────────────────────────────────────────── */
 ::selection {
-  background: var(--color-brand-orange);
+  background: var(--color-terracotta);
   color: #fff;
 }
 
@@ -85,31 +110,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Utility: Section Label ────────────────────────────────── */
 .section-label {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-brand-orange);
-}
-
-/* ─── Gallery Masonry ───────────────────────────────────────── */
-.masonry-grid {
-  column-count: 1;
-  column-gap: 1rem;
-}
-
-@media (min-width: 640px) {
-  .masonry-grid { column-count: 2; }
-}
-
-@media (min-width: 1024px) {
-  .masonry-grid { column-count: 3; }
-}
-
-.masonry-item {
-  break-inside: avoid;
-  margin-bottom: 1rem;
+  color: var(--color-terracotta);
 }
 
 /* ─── Lightbox ──────────────────────────────────────────────── */
@@ -121,4 +127,13 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ─── Gallery Carousel Hide Scrollbar ───────────────────────── */
+.gallery-scroll::-webkit-scrollbar {
+  display: none;
+}
+.gallery-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -1,11 +1,10 @@
 import Header from '@/components/Header/Header';
 import Hero from '@/components/Hero/Hero';
-import QuickInfo from '@/components/QuickInfo/QuickInfo';
-import About from '@/components/About/About';
-import Leadership from '@/components/Leadership/Leadership';
-import Highlights from '@/components/Highlights/Highlights';
+import Vision from '@/components/Vision/Vision';
 import Gallery from '@/components/Gallery/Gallery';
-import Quote from '@/components/Quote/Quote';
+import Amenities from '@/components/Amenities/Amenities';
+import Staff from '@/components/Staff/Staff';
+import PrincipalMessage from '@/components/PrincipalMessage/PrincipalMessage';
 import Footer from '@/components/Footer/Footer';
 
 export default function Home() {
@@ -14,12 +13,11 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
-        <QuickInfo />
-        <About />
-        <Leadership />
-        <Highlights />
+        <Vision />
         <Gallery />
-        <Quote />
+        <Amenities />
+        <Staff />
+        <PrincipalMessage />
       </main>
       <Footer />
     </>

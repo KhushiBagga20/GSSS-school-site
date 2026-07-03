@@ -73,6 +73,43 @@ export interface GalleryImage {
   src: string;
   altKey: string;
   span?: 'normal' | 'wide' | 'tall';
+  eventId?: string;
+}
+
+export interface GalleryEvent {
+  id: string;
+  titleKey: string;
+  dateKey: string;
+  descriptionKey: string;
+  location: string;
+  geoTag: string;
+  imageSrc: string;
+}
+
+export interface StaffMember {
+  id: string;
+  name: string;
+  nameHi: string;
+  designation: string;
+  designationHi: string;
+  subject?: string;
+  subjectHi?: string;
+  imageSrc: string | null;
+}
+
+export interface VisionValue {
+  id: string;
+  number: string;
+  titleKey: string;
+  descriptionKey: string;
+}
+
+export interface Amenity {
+  id: string;
+  icon: string;
+  titleKey: string;
+  value: string;
+  valueHi: string;
 }
 
 export interface NavItem {

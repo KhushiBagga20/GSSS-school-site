@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
-import { Poppins, Inter } from 'next/font/google';
+import { Playfair_Display, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/lib/i18n';
 
-const poppins = Poppins({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-heading',
   display: 'swap',
 });
 
-const inter = Inter({
+const sourceSans = Source_Sans_3({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-body',
@@ -66,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${sourceSans.variable}`}>
       <body>
         <LanguageProvider>{children}</LanguageProvider>
       </body>

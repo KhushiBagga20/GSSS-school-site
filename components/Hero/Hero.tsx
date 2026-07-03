@@ -1,112 +1,98 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import Image from 'next/image';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n';
 import { schoolInfo } from '@/data/school';
 
 export default function Hero() {
   const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // Parallax: image moves slower than scroll
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -40]);
 
   const handleScroll = () => {
-    const el = document.querySelector('#about');
+    const el = document.querySelector('#vision');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section
       id="home"
-      className="relative flex items-center justify-center overflow-hidden"
+      ref={sectionRef}
+      className="relative flex items-end overflow-hidden"
       style={{ minHeight: '100svh' }}
       aria-label="Hero section"
     >
-      {/* Background — placeholder for school image */}
-      <div
+      {/* Background image with parallax */}
+      <motion.div
         className="absolute inset-0"
-        style={{ backgroundColor: '#1a2e1a' }}
+        style={{ y: imageY }}
         aria-hidden="true"
       >
-        {/* [PLACEHOLDER] Replace this div with an <Image> of the school building */}
-        {/* Example:
-            <Image
-              src="/images/hero-bg.webp"
-              alt="GSSS Trilokpur school building"
-              fill
-              className="object-cover"
-              priority
-            />
-        */}
-
-        {/* Placeholder visual — subtle topographic / nature pattern */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, #84B88A 0%, transparent 50%),
-                              radial-gradient(circle at 80% 20%, #F4B66A 0%, transparent 40%),
-                              radial-gradient(circle at 60% 80%, #84B88A 0%, transparent 40%)`,
-          }}
+        <Image
+          src="/images/hero-bg.png"
+          alt="GSSS Trilokpur school building with Himalayan mountains"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+          style={{ objectPosition: 'center 30%' }}
         />
-
-        {/* Mountain silhouette SVG (Himachal Pradesh reference) */}
-        <svg
-          className="absolute bottom-0 left-0 right-0 w-full opacity-30"
-          viewBox="0 0 1440 280"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path
-            d="M0,280 L0,180 L120,100 L240,150 L360,60 L480,120 L600,40 L720,110 L840,50 L960,130 L1080,70 L1200,140 L1320,80 L1440,160 L1440,280 Z"
-            fill="#84B88A"
-            opacity="0.5"
-          />
-          <path
-            d="M0,280 L0,220 L180,160 L360,200 L540,140 L720,180 L900,130 L1080,170 L1260,120 L1440,200 L1440,280 Z"
-            fill="#FAF8F4"
-            opacity="0.08"
-          />
-        </svg>
-
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(10,20,10,0.55)' }} />
-      </div>
+        <div
+          className="absolute inset-0"
+          style={{ backgroundColor: 'rgba(10, 15, 10, 0.5)' }}
+        />
+      </motion.div>
 
-      {/* Content */}
-      <div
-        className="relative z-10 text-center px-5 flex flex-col items-center"
-        style={{ maxWidth: '800px' }}
+      {/* Content — left aligned, bottom area */}
+      <motion.div
+        className="relative z-10 px-6 md:px-10 pb-20 md:pb-28 pt-40"
+        style={{
+          maxWidth: '800px',
+          opacity: contentOpacity,
+          y: contentY,
+        }}
       >
-        {/* Emblem pill */}
-        <motion.div
+        {/* Established label */}
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-6"
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-4"
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.75rem',
+            fontWeight: 600,
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--color-terracotta)',
+          }}
         >
-          <span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-widest uppercase"
-            style={{
-              backgroundColor: 'rgba(244,182,106,0.18)',
-              border: '1px solid rgba(244,182,106,0.5)',
-              color: '#F4B66A',
-              fontFamily: 'var(--font-heading)',
-            }}
-          >
-            <span aria-hidden="true">🏛️</span>
-            {schoolInfo.management}
-          </span>
-        </motion.div>
+          {t('hero.established')} · {t('hero.location')}
+        </motion.p>
 
         {/* School name */}
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-white font-bold mb-3"
+          transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="text-white mb-4"
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(2rem, 6vw, 3.75rem)',
-            lineHeight: 1.15,
-            textShadow: '0 2px 24px rgba(0,0,0,0.4)',
+            fontSize: 'clamp(2.2rem, 6vw, 4rem)',
+            fontWeight: 700,
+            lineHeight: 1.1,
           }}
         >
           {schoolInfo.fullName}
@@ -116,15 +102,16 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-6 font-medium tracking-wider"
+          transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-6"
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)',
-            color: '#F4B66A',
-            letterSpacing: '0.12em',
+            fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
+            fontWeight: 400,
+            fontStyle: 'italic',
+            color: 'rgba(255, 255, 255, 0.85)',
+            letterSpacing: '0.03em',
           }}
-          aria-label={`Motto: ${t('hero.tagline')}`}
         >
           {t('hero.tagline')}
         </motion.p>
@@ -133,41 +120,49 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-10"
+          transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            color: 'rgba(255,255,255,0.82)',
+            color: 'rgba(255,255,255,0.7)',
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.9rem, 2vw, 1.05rem)',
-            maxWidth: '560px',
+            fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+            maxWidth: '520px',
+            lineHeight: 1.7,
           }}
         >
           {t('hero.description')}
         </motion.p>
+      </motion.div>
 
-        {/* Scroll down indicator */}
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          onClick={handleScroll}
-          className="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-md p-2"
-          aria-label={t('hero.scrollDown')}
+      {/* Scroll down indicator — centered at bottom */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1 }}
+        onClick={handleScroll}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50 hover:text-white/80 transition-colors duration-300"
+        aria-label={t('hero.scrollDown')}
+      >
+        <span
+          className="tracking-widest uppercase"
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '9px',
+            fontWeight: 600,
+            letterSpacing: '0.2em',
+          }}
         >
-          <span className="text-xs tracking-widest uppercase" style={{ fontFamily: 'var(--font-heading)', fontSize: '10px' }}>
-            {t('hero.scrollDown')}
-          </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' as const }}
-            aria-hidden="true"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </motion.div>
-        </motion.button>
-      </div>
+          {t('hero.scrollDown')}
+        </span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          aria-hidden="true"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" strokeWidth="1" strokeLinecap="square" />
+          </svg>
+        </motion.div>
+      </motion.button>
     </section>
   );
 }
