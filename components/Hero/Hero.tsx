@@ -51,7 +51,7 @@ export default function Hero() {
         {/* Dark overlay for text readability */}
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: 'rgba(10, 15, 10, 0.5)' }}
+          style={{ backgroundColor: 'rgba(10, 15, 10, 0.62)' }}
         />
       </motion.div>
 
@@ -76,7 +76,7 @@ export default function Hero() {
             fontWeight: 600,
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
-            color: 'var(--color-terracotta)',
+            color: '#E5A988',
           }}
         >
           {t('hero.established')} · {t('hero.location')}
@@ -87,12 +87,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="text-white mb-4"
+          className="mb-4"
           style={{
             fontFamily: 'var(--font-heading)',
             fontSize: 'clamp(2.2rem, 6vw, 4rem)',
             fontWeight: 700,
             lineHeight: 1.1,
+            color: '#FAF7F2',
           }}
         >
           {schoolInfo.fullName}
@@ -109,7 +110,7 @@ export default function Hero() {
             fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
             fontWeight: 400,
             fontStyle: 'italic',
-            color: 'rgba(255, 255, 255, 0.85)',
+            color: 'rgba(255, 255, 255, 0.9)',
             letterSpacing: '0.03em',
           }}
         >
@@ -122,7 +123,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            color: 'rgba(255,255,255,0.7)',
+            color: '#FAF7F2',
             fontFamily: 'var(--font-body)',
             fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
             maxWidth: '520px',
