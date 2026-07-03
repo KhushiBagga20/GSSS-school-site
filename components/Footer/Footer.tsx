@@ -1,14 +1,8 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/lib/i18n';
 import { schoolInfo } from '@/data/school';
-
-const currentYear = new Date().getFullYear();
-const lastUpdated = new Date().toLocaleDateString('en-IN', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
 
 const navLinks = [
   { labelKey: 'nav.home' as const, href: '#home' },
@@ -21,8 +15,23 @@ const navLinks = [
 
 export default function Footer() {
   const { t } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentYear = mounted ? new Date().getFullYear() : 2026;
+  const lastUpdated = mounted
+    ? new Date().toLocaleDateString('en-IN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : '';
 
   const handleNavClick = (href: string) => {
+
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
