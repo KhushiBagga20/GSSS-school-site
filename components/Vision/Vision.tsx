@@ -1,46 +1,52 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { useLanguage } from '@/lib/i18n';
 import { visionValues } from '@/data/school';
 import { zoomIn, zoomDelayed } from '@/lib/motionVariants';
 
+const PALETTE = [
+  { accent: 'var(--color-terracotta)', bg: '#FDF3EE' },
+  { accent: 'var(--color-olive)',       bg: '#F2F5EF' },
+  { accent: '#8B7355',                  bg: '#F6F1EA' },
+  { accent: 'var(--color-terracotta-dark)', bg: '#FAF7F2' },
+];
 
 export default function Vision() {
   const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const lineWidth = useTransform(scrollYProgress, [0.1, 0.6], ['0%', '100%']);
 
   return (
     <section
       id="vision"
-      className="section-padding"
+      ref={sectionRef}
+      className="section-padding overflow-hidden"
       style={{ backgroundColor: 'var(--color-bg)' }}
       aria-labelledby="vision-heading"
     >
-      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '900px' }}>
+      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '1100px' }}>
 
-        {/* ── Centered heading block ─────────────────────── */}
+        {/* ── Centered heading ──────────────────────── */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           variants={zoomIn}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
         >
-          {/* Decorative line + diamond */}
-          <div className="flex items-center justify-center gap-3 mb-6" aria-hidden="true">
-            <div style={{ width: '60px', height: '1px', backgroundColor: 'var(--color-border)' }} />
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="6" y="0" width="8.49" height="8.49" transform="rotate(45 6 0)" stroke="var(--color-terracotta)" strokeWidth="1" fill="none" /></svg>
-            <div style={{ width: '60px', height: '1px', backgroundColor: 'var(--color-border)' }} />
-          </div>
-
           <p className="section-label mb-3">{t('vision.sectionTitle')}</p>
-
           <h2
             id="vision-heading"
-            className="mb-5"
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
               fontWeight: 700,
               color: 'var(--color-dark)',
               lineHeight: 1.15,
@@ -49,130 +55,216 @@ export default function Vision() {
             {t('vision.heading')}
           </h2>
 
-          {/* Thin accent line below heading */}
-          <div className="mx-auto" style={{ width: '40px', height: '2px', backgroundColor: 'var(--color-terracotta)' }} aria-hidden="true" />
+          {/* Animated horizontal line */}
+          <div className="relative mx-auto mt-5" style={{ width: '120px', height: '1px', backgroundColor: 'var(--color-border)' }}>
+            <motion.div
+              className="absolute inset-y-0 left-0"
+              style={{ backgroundColor: 'var(--color-terracotta)', width: lineWidth }}
+            />
+          </div>
         </motion.div>
 
-        {/* ── Mission & Vision — stacked centered blocks ── */}
-        <div className="flex flex-col items-center gap-12 mb-20">
-          {/* Mission */}
-          <motion.div
-            variants={zoomDelayed(0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            className="text-center"
-            style={{ maxWidth: '640px' }}
-          >
-            <div className="flex items-center justify-center gap-3 mb-4" aria-hidden="true">
-              <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--color-terracotta)' }} />
-              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-terracotta-dark)', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>
-                {t('vision.mission')}
-              </span>
-              <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--color-terracotta)' }} />
-            </div>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.05rem', color: 'var(--color-dark)', lineHeight: 1.9 }}>
-              {t('vision.missionText')}
-            </p>
-          </motion.div>
-
-          {/* Decorative separator */}
-          <motion.div
-            variants={zoomDelayed(0.15)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            aria-hidden="true"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><line x1="10" y1="0" x2="10" y2="20" stroke="var(--color-border)" strokeWidth="1" /><line x1="0" y1="10" x2="20" y2="10" stroke="var(--color-border)" strokeWidth="1" /></svg>
-          </motion.div>
-
-          {/* Vision */}
-          <motion.div
-            variants={zoomDelayed(0.2)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            className="text-center"
-            style={{ maxWidth: '640px' }}
-          >
-            <div className="flex items-center justify-center gap-3 mb-4" aria-hidden="true">
-              <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--color-olive)' }} />
-              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-olive)', letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>
-                {t('vision.visionLabel')}
-              </span>
-              <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--color-olive)' }} />
-            </div>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.05rem', color: 'var(--color-dark)', lineHeight: 1.9 }}>
-              {t('vision.visionText')}
-            </p>
-          </motion.div>
-        </div>
-
-        {/* ── Values — centered vertical stack ────────── */}
-        <div className="flex flex-col items-center gap-0">
-          {visionValues.map((value, i) => (
+        {/* ── Mission / Vision — split horizontal ───── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-24">
+          {[
+            {
+              label: t('vision.mission'),
+              text: t('vision.missionText'),
+              accent: 'var(--color-terracotta)',
+              num: '01',
+            },
+            {
+              label: t('vision.visionLabel'),
+              text: t('vision.visionText'),
+              accent: 'var(--color-olive)',
+              num: '02',
+            },
+          ].map((card, i) => (
             <motion.div
-              key={value.id}
-              variants={zoomDelayed(i * 0.1)}
+              key={card.num}
+              variants={zoomDelayed(i * 0.15)}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: '-40px' }}
-              className="w-full text-center py-12 relative"
-              style={{ maxWidth: '640px' }}
+              viewport={{ once: true, margin: '-60px' }}
+              className="relative p-10 md:p-12"
+              style={{
+                borderLeft: `3px solid ${card.accent}`,
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                borderRight: i === 0 ? 'none' : '1px solid var(--color-border)',
+                backgroundColor: i === 0 ? 'var(--color-cream)' : '#fff',
+              }}
             >
-              {/* Top decorative line (except first) */}
-              {i > 0 && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2" style={{ width: '1px', height: '40px', backgroundColor: 'var(--color-border)' }} aria-hidden="true" />
-              )}
-
-              {/* Number in a circle */}
-              <div
-                className="mx-auto mb-5 flex items-center justify-center"
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  border: '1px solid var(--color-border)',
-                }}
+              {/* Large background number */}
+              <span
+                className="absolute top-6 right-8 select-none pointer-events-none"
                 aria-hidden="true"
-              >
-                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.9rem', fontWeight: 300, color: 'var(--color-muted)' }}>
-                  {value.number}
-                </span>
-              </div>
-
-              <h3
-                className="mb-3"
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '1.3rem',
+                  fontSize: '5rem',
                   fontWeight: 700,
-                  color: 'var(--color-dark)',
+                  color: card.accent,
+                  opacity: 0.07,
+                  lineHeight: 1,
                 }}
               >
-                {t(value.titleKey as Parameters<typeof t>[0])}
-              </h3>
+                {card.num}
+              </span>
 
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', color: 'var(--color-muted)', lineHeight: 1.8 }}>
-                {t(value.descriptionKey as Parameters<typeof t>[0])}
+              <p
+                className="mb-4"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.65rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.25em',
+                  textTransform: 'uppercase',
+                  color: card.accent,
+                }}
+              >
+                {card.label}
+              </p>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  color: 'var(--color-dark)',
+                  lineHeight: 2,
+                }}
+              >
+                {card.text}
               </p>
             </motion.div>
           ))}
-
-          {/* Bottom decorative element */}
-          <motion.div
-            variants={zoomDelayed(0.5)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex flex-col items-center gap-2 pt-4"
-            aria-hidden="true"
-          >
-            <div style={{ width: '1px', height: '40px', backgroundColor: 'var(--color-border)' }} />
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="6" y="0" width="8.49" height="8.49" transform="rotate(45 6 0)" stroke="var(--color-terracotta)" strokeWidth="1" fill="none" /></svg>
-          </motion.div>
         </div>
+
+        {/* ── Values infographic ────────────────────── */}
+        {/* Desktop: horizontal timeline strip; Mobile: stacked */}
+        <div className="hidden md:flex items-stretch gap-0">
+          {visionValues.map((value, i) => {
+            const pal = PALETTE[i];
+            return (
+              <motion.div
+                key={value.id}
+                variants={zoomDelayed(i * 0.12)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-40px' }}
+                className="flex-1 flex flex-col relative"
+                style={{
+                  borderTop: `3px solid ${pal.accent}`,
+                  borderLeft: '1px solid var(--color-border)',
+                  borderBottom: '1px solid var(--color-border)',
+                  borderRight: i === visionValues.length - 1 ? '1px solid var(--color-border)' : 'none',
+                  backgroundColor: pal.bg,
+                  minHeight: '320px',
+                }}
+              >
+                {/* Top connector dot */}
+                <div
+                  className="absolute -top-[7px] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
+                  style={{ backgroundColor: pal.accent, border: `2px solid ${pal.bg}`, outline: `1px solid ${pal.accent}` }}
+                  aria-hidden="true"
+                />
+
+                <div className="p-8 flex flex-col h-full">
+                  {/* Big number */}
+                  <div
+                    className="mb-6 inline-block"
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      color: pal.accent,
+                      borderBottom: `1px solid ${pal.accent}`,
+                      paddingBottom: '4px',
+                    }}
+                  >
+                    {value.number}
+                  </div>
+
+                  <h3
+                    className="mb-4"
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '1.15rem',
+                      fontWeight: 700,
+                      color: 'var(--color-dark)',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {t(value.titleKey as Parameters<typeof t>[0])}
+                  </h3>
+
+                  <p
+                    className="flex-1"
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.85rem',
+                      color: 'var(--color-muted)',
+                      lineHeight: 1.8,
+                    }}
+                  >
+                    {t(value.descriptionKey as Parameters<typeof t>[0])}
+                  </p>
+
+                  {/* Bottom icon */}
+                  <div className="mt-6 pt-4" style={{ borderTop: `1px solid ${pal.accent}22` }} aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <rect x="1" y="1" width="18" height="18" stroke={pal.accent} strokeWidth="1" fill="none" strokeDasharray="3 3" />
+                      <circle cx="10" cy="10" r="3" fill={pal.accent} opacity="0.5" />
+                    </svg>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Mobile: accordion-style stack */}
+        <div className="flex flex-col md:hidden gap-0">
+          {visionValues.map((value, i) => {
+            const pal = PALETTE[i];
+            return (
+              <motion.div
+                key={value.id}
+                variants={zoomDelayed(i * 0.12)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-20px' }}
+                className="flex gap-6 p-6"
+                style={{
+                  borderLeft: `3px solid ${pal.accent}`,
+                  borderBottom: '1px solid var(--color-border)',
+                  backgroundColor: pal.bg,
+                }}
+              >
+                {/* Number column */}
+                <div
+                  className="flex-shrink-0 flex items-start pt-1"
+                  style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: 300, color: pal.accent, width: '32px' }}
+                  aria-hidden="true"
+                >
+                  {value.number}
+                </div>
+                <div>
+                  <h3
+                    className="mb-2"
+                    style={{ fontFamily: 'var(--font-heading)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-dark)' }}
+                  >
+                    {t(value.titleKey as Parameters<typeof t>[0])}
+                  </h3>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'var(--color-muted)', lineHeight: 1.7 }}>
+                    {t(value.descriptionKey as Parameters<typeof t>[0])}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );
