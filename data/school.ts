@@ -54,7 +54,7 @@ export const principal: Leader = {
   message: `It is my privilege to welcome you to the official website of Government Senior Secondary School, Trilokpur. Since our establishment in 1958, this institution has stood as a beacon of learning in the Surla region of Sirmaur district. Our dedicated team of 21 teachers is committed to nurturing every student — academically, morally, and culturally. We believe that education is not merely the transfer of knowledge, but the shaping of character and the kindling of curiosity. I invite parents, students, and the community to walk this journey of learning and growth with us.`,
   // [PLACEHOLDER] Replace with actual Hindi message
   messageHi: `सरकारी वरिष्ठ माध्यमिक विद्यालय, त्रिलोकपुर की आधिकारिक वेबसाइट पर आपका स्वागत है। वर्ष 1958 से यह संस्था सिरमौर जिले के सुरला क्षेत्र में शिक्षा का केंद्र रही है। हमारे 21 समर्पित शिक्षक विद्यार्थियों के सर्वांगीण विकास के लिए प्रतिबद्ध हैं। मेरा विश्वास है कि शिक्षा केवल ज्ञान का हस्तांतरण नहीं है, बल्कि यह चरित्र निर्माण और जिज्ञासा की ज्योति जलाने का माध्यम है।`,
-  imageSrc: '/images/principal.png',
+  imageSrc: '/images/principal.jpg',
 };
 
 export const quickStats: QuickStat[] = [
@@ -208,7 +208,7 @@ export const staffMembers: StaffMember[] = [
     nameHi: 'प्रिया बग्गा',
     designation: 'Principal',
     designationHi: 'प्रधानाचार्य',
-    imageSrc: '/images/principal.png',
+    imageSrc: '/images/principal.jpg',
   },
   {
     id: 's2',
