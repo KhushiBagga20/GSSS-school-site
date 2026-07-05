@@ -64,202 +64,163 @@ export default function Vision() {
           </div>
         </motion.div>
 
-        {/* ── Mission / Vision — split horizontal, staggered ───── */}
-        <div className="relative mb-32">
-          {/* Horizontal dotted link line behind cards */}
-          <div className="absolute top-1/2 left-0 right-0 h-[1px] border-t border-dashed border-border -translate-y-1/2 z-0 hidden md:block" aria-hidden="true" />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative z-10">
-            {[
-              {
-                label: t('vision.mission'),
-                text: t('vision.missionText'),
-                accent: 'var(--color-terracotta)',
-                num: '01',
-                offset: 'md:-translate-y-6',
-              },
-              {
-                label: t('vision.visionLabel'),
-                text: t('vision.visionText'),
-                accent: 'var(--color-olive)',
-                num: '02',
-                offset: 'md:translate-y-6',
-              },
-            ].map((card, i) => (
-              <motion.div
-                key={card.num}
-                variants={zoomDelayed(i * 0.15)}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-60px' }}
-                className={`relative p-10 md:p-12 transition-transform duration-300 ${card.offset}`}
+        {/* ── Mission / Vision — split horizontal ───── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-24">
+          {[
+            {
+              label: t('vision.mission'),
+              text: t('vision.missionText'),
+              accent: 'var(--color-terracotta)',
+              num: '01',
+            },
+            {
+              label: t('vision.visionLabel'),
+              text: t('vision.visionText'),
+              accent: 'var(--color-olive)',
+              num: '02',
+            },
+          ].map((card, i) => (
+            <motion.div
+              key={card.num}
+              variants={zoomDelayed(i * 0.15)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              className="relative p-10 md:p-12"
+              style={{
+                borderLeft: `3px solid ${card.accent}`,
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                borderRight: i === 0 ? 'none' : '1px solid var(--color-border)',
+                backgroundColor: i === 0 ? 'var(--color-cream)' : '#fff',
+              }}
+            >
+              {/* Large background number */}
+              <span
+                className="absolute top-6 right-8 select-none pointer-events-none"
+                aria-hidden="true"
                 style={{
-                  borderLeft: `3px solid ${card.accent}`,
-                  borderTop: '1px solid var(--color-border)',
-                  borderBottom: '1px solid var(--color-border)',
-                  borderRight: '1px solid var(--color-border)',
-                  backgroundColor: i === 0 ? 'var(--color-cream)' : '#fff',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '5rem',
+                  fontWeight: 700,
+                  color: card.accent,
+                  opacity: 0.07,
+                  lineHeight: 1,
                 }}
               >
-                {/* Large background number */}
-                <span
-                  className="absolute top-6 right-8 select-none pointer-events-none"
-                  aria-hidden="true"
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '5rem',
-                    fontWeight: 700,
-                    color: card.accent,
-                    opacity: 0.07,
-                    lineHeight: 1,
-                  }}
-                >
-                  {card.num}
-                </span>
+                {card.num}
+              </span>
 
-                {/* Floating coordinate helper */}
-                <span className="absolute bottom-3 right-4 text-[9px] font-mono tracking-widest text-muted/30 select-none">
-                  [SYS_INF_{card.num}]
-                </span>
-
-                <p
-                  className="mb-4"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.65rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.25em',
-                    textTransform: 'uppercase',
-                    color: card.accent,
-                  }}
-                >
-                  {card.label}
-                </p>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '1rem',
-                    color: 'var(--color-dark)',
-                    lineHeight: 2,
-                  }}
-                >
-                  {card.text}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+              <p
+                className="mb-4"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.65rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.25em',
+                  textTransform: 'uppercase',
+                  color: card.accent,
+                }}
+              >
+                {card.label}
+              </p>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  color: 'var(--color-dark)',
+                  lineHeight: 2,
+                }}
+              >
+                {card.text}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
-        {/* ── Values infographic — Staggered wave ────────────────── */}
-        <div className="relative py-12">
-          {/* Central guide line passing through the timeline */}
-          <div className="absolute top-1/2 left-0 right-0 h-[1px] border-t border-dashed border-border -translate-y-1/2 z-0 hidden md:block" aria-hidden="true" />
+        {/* ── Values infographic ────────────────────── */}
+        {/* Desktop: horizontal timeline strip; Mobile: stacked */}
+        <div className="hidden md:flex items-stretch gap-0">
+          {visionValues.map((value, i) => {
+            const pal = PALETTE[i];
+            return (
+              <motion.div
+                key={value.id}
+                variants={zoomDelayed(i * 0.12)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-40px' }}
+                className="flex-1 flex flex-col relative"
+                style={{
+                  borderTop: `3px solid ${pal.accent}`,
+                  borderLeft: '1px solid var(--color-border)',
+                  borderBottom: '1px solid var(--color-border)',
+                  borderRight: i === visionValues.length - 1 ? '1px solid var(--color-border)' : 'none',
+                  backgroundColor: pal.bg,
+                  minHeight: '320px',
+                }}
+              >
+                {/* Top connector dot */}
+                <div
+                  className="absolute -top-[7px] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
+                  style={{ backgroundColor: pal.accent, border: `2px solid ${pal.bg}`, outline: `1px solid ${pal.accent}` }}
+                  aria-hidden="true"
+                />
 
-          {/* Desktop: horizontal wave timeline strip */}
-          <div className="hidden md:flex items-stretch gap-6 relative z-10">
-            {visionValues.map((value, i) => {
-              const pal = PALETTE[i];
-              const isOffset = i % 2 === 1;
-              return (
-                <motion.div
-                  key={value.id}
-                  variants={zoomDelayed(i * 0.12)}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
-                  className="flex-1 flex flex-col relative"
-                  style={{
-                    borderTop: `3px solid ${pal.accent}`,
-                    borderLeft: '1px solid var(--color-border)',
-                    borderBottom: '1px solid var(--color-border)',
-                    borderRight: '1px solid var(--color-border)',
-                    backgroundColor: pal.bg,
-                    minHeight: '320px',
-                    transform: isOffset ? 'translateY(24px)' : 'translateY(-24px)',
-                  }}
-                >
-                  {/* Connector dot on the center line */}
+                <div className="p-8 flex flex-col h-full">
+                  {/* Big number */}
                   <div
-                    className="absolute w-2 h-2 rounded-full"
+                    className="mb-6 inline-block"
                     style={{
-                      backgroundColor: pal.accent,
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      top: isOffset ? '-27px' : 'auto',
-                      bottom: isOffset ? 'auto' : '-27px',
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      color: pal.accent,
+                      borderBottom: `1px solid ${pal.accent}`,
+                      paddingBottom: '4px',
                     }}
-                    aria-hidden="true"
-                  />
-                  {/* Vertical connector line leading to dot */}
-                  <div
-                    className="absolute w-[1px] border-l border-dashed border-border"
-                    style={{
-                      left: '50%',
-                      top: isOffset ? '-24px' : 'auto',
-                      bottom: isOffset ? 'auto' : '-24px',
-                      height: '24px',
-                    }}
-                    aria-hidden="true"
-                  />
-
-                  <div className="p-8 flex flex-col h-full">
-                    <div className="flex justify-between items-start mb-6">
-                      <div
-                        style={{
-                          fontFamily: 'var(--font-heading)',
-                          fontSize: '0.7rem',
-                          fontWeight: 700,
-                          letterSpacing: '0.15em',
-                          textTransform: 'uppercase',
-                          color: pal.accent,
-                          borderBottom: `1px solid ${pal.accent}`,
-                          paddingBottom: '4px',
-                        }}
-                      >
-                        {value.number}
-                      </div>
-                      <span className="text-[9px] font-mono text-muted/30 select-none">
-                        VAL_{value.number}
-                      </span>
-                    </div>
-
-                    <h3
-                      className="mb-4"
-                      style={{
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: '1.15rem',
-                        fontWeight: 700,
-                        color: 'var(--color-dark)',
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {t(value.titleKey as Parameters<typeof t>[0])}
-                    </h3>
-
-                    <p
-                      className="flex-1"
-                      style={{
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '0.85rem',
-                        color: 'var(--color-muted)',
-                        lineHeight: 1.8,
-                      }}
-                    >
-                      {t(value.descriptionKey as Parameters<typeof t>[0])}
-                    </p>
-
-                    {/* Bottom icon diagram */}
-                    <div className="mt-6 pt-4" style={{ borderTop: `1px solid ${pal.accent}22` }} aria-hidden="true">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <rect x="1" y="1" width="18" height="18" stroke={pal.accent} strokeWidth="1" fill="none" strokeDasharray="3 3" />
-                        <circle cx="10" cy="10" r="3" fill={pal.accent} opacity="0.5" />
-                      </svg>
-                    </div>
+                  >
+                    {value.number}
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
+
+                  <h3
+                    className="mb-4"
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '1.15rem',
+                      fontWeight: 700,
+                      color: 'var(--color-dark)',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {t(value.titleKey as Parameters<typeof t>[0])}
+                  </h3>
+
+                  <p
+                    className="flex-1"
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.85rem',
+                      color: 'var(--color-muted)',
+                      lineHeight: 1.8,
+                    }}
+                  >
+                    {t(value.descriptionKey as Parameters<typeof t>[0])}
+                  </p>
+
+                  {/* Bottom icon */}
+                  <div className="mt-6 pt-4" style={{ borderTop: `1px solid ${pal.accent}22` }} aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <rect x="1" y="1" width="18" height="18" stroke={pal.accent} strokeWidth="1" fill="none" strokeDasharray="3 3" />
+                      <circle cx="10" cy="10" r="3" fill={pal.accent} opacity="0.5" />
+                    </svg>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Mobile: accordion-style stack */}

@@ -151,67 +151,56 @@ export default function Gallery() {
           </h2>
         </motion.div>
 
-        {/* ── Gallery grid — staggered collage tiles with zoom ──── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-10">
-          {galleryEvents.map((event, i) => {
-            const designs = [
-              { aspect: 'aspect-[4/3]', offset: 'lg:-translate-y-6' },
-              { aspect: 'aspect-[1/1]', offset: 'lg:translate-y-8' },
-              { aspect: 'aspect-[3/4]', offset: 'lg:-translate-y-4' },
-              { aspect: 'aspect-[3/4]', offset: 'lg:translate-y-6' },
-              { aspect: 'aspect-[4/3]', offset: 'lg:-translate-y-8' },
-              { aspect: 'aspect-[1/1]', offset: 'lg:translate-y-4' },
-            ];
-            const design = designs[i % designs.length];
-            return (
-              <motion.button
-                key={event.id}
-                onClick={() => setSelectedEvent(event)}
-                variants={zoomDelayed(i * 0.08)}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
-                whileHover={{ scale: 1.03 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className={`group relative overflow-hidden text-left ${design.aspect} ${design.offset} transition-transform duration-300`}
-                style={{ border: '1px solid var(--color-border)' }}
-                aria-label={`View: ${t(event.titleKey as Parameters<typeof t>[0])}`}
-              >
-                <Image
-                  src={event.imageSrc}
-                  alt={t(event.titleKey as Parameters<typeof t>[0])}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+        {/* ── Gallery grid — centered tiles with zoom ──── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {galleryEvents.map((event, i) => (
+            <motion.button
+              key={event.id}
+              onClick={() => setSelectedEvent(event)}
+              variants={zoomDelayed(i * 0.08)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className="group relative overflow-hidden text-left"
+              style={{ aspectRatio: '4/3', border: '1px solid var(--color-border)' }}
+              aria-label={`View: ${t(event.titleKey as Parameters<typeof t>[0])}`}
+            >
+              <Image
+                src={event.imageSrc}
+                alt={t(event.titleKey as Parameters<typeof t>[0])}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
 
-                {/* Dark gradient overlay */}
-                <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-90" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)', opacity: 0.7 }} aria-hidden="true" />
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-90" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)', opacity: 0.7 }} aria-hidden="true" />
 
-                {/* Geotag */}
-                <span className="absolute top-3 left-3 px-2 py-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)', color: 'rgba(255,255,255,0.9)', fontFamily: 'var(--font-body)', fontSize: '10px', fontWeight: 600, letterSpacing: '0.05em' }}>
-                  {event.geoTag}
-                </span>
+              {/* Geotag */}
+              <span className="absolute top-3 left-3 px-2 py-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)', color: 'rgba(255,255,255,0.9)', fontFamily: 'var(--font-body)', fontSize: '10px', fontWeight: 600, letterSpacing: '0.05em' }}>
+                {event.geoTag}
+              </span>
 
-                {/* Corner accent lines */}
-                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M20 0v10M10 0h10" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                  </svg>
-                </div>
+              {/* Corner accent lines */}
+              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M20 0v10M10 0h10" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
+                </svg>
+              </div>
 
-                {/* Text at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <p className="mb-1" style={{ fontFamily: 'var(--font-body)', fontSize: '10px', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#E5A988' }}>
-                    {t(event.dateKey as Parameters<typeof t>[0])}
-                  </p>
-                  <p style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', fontWeight: 600, color: '#fff', lineHeight: 1.3 }}>
-                    {t(event.titleKey as Parameters<typeof t>[0])}
-                  </p>
-                </div>
-              </motion.button>
-            );
-          })}
+              {/* Text at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <p className="mb-1" style={{ fontFamily: 'var(--font-body)', fontSize: '10px', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#E5A988' }}>
+                  {t(event.dateKey as Parameters<typeof t>[0])}
+                </p>
+                <p style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', fontWeight: 600, color: '#fff', lineHeight: 1.3 }}>
+                  {t(event.titleKey as Parameters<typeof t>[0])}
+                </p>
+              </div>
+            </motion.button>
+          ))}
         </div>
       </div>
 

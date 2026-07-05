@@ -239,7 +239,7 @@ export default function Amenities() {
                   </div>
 
                   {/* Bottom descriptive block */}
-                  <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '12px' }} className="flex justify-between items-end gap-4">
+                  <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '12px' }}>
                     <p
                       style={{
                         fontFamily: 'var(--font-body)',
@@ -247,13 +247,9 @@ export default function Amenities() {
                         color: 'var(--color-muted)',
                         lineHeight: 1.5,
                       }}
-                      className="flex-1"
                     >
                       {details.subtext}
                     </p>
-                    <span className="text-[8px] font-mono text-muted/20 select-none tracking-widest hidden sm:inline whitespace-nowrap">
-                      [30.54°N]
-                    </span>
                   </div>
                 </motion.div>
               );
