@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n';
 import { principal } from '@/data/school';
-import { fadeUp, slideInLeft, slideInRight } from '@/lib/motionVariants';
+import { zoomIn, zoomSlow } from '@/lib/motionVariants';
+
 
 export default function PrincipalMessage() {
   const { lang, t } = useLanguage();
@@ -19,61 +20,57 @@ export default function PrincipalMessage() {
       style={{ backgroundColor: '#fff' }}
       aria-labelledby="principal-heading"
     >
-      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '1200px' }}>
-        <motion.p
-          className="section-label mb-3"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {t('principalMessage.sectionTitle')}
-        </motion.p>
+      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '800px' }}>
 
-        <motion.h2
-          id="principal-heading"
-          className="mb-4"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
-            fontWeight: 700,
-            color: 'var(--color-dark)',
-          }}
-        >
-          {t('principalMessage.heading')}
-        </motion.h2>
-
+        {/* ── Centered heading ────────────────────────── */}
         <motion.div
-          variants={fadeUp}
+          className="text-center mb-14"
+          variants={zoomIn}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          style={{
-            width: '60px',
-            height: '1px',
-            backgroundColor: 'var(--color-terracotta)',
-            marginBottom: '3.5rem',
-          }}
-          aria-hidden="true"
-        />
+          viewport={{ once: true, margin: '-80px' }}
+        >
+          {/* Decorative line + circle */}
+          <div className="flex items-center justify-center gap-3 mb-6" aria-hidden="true">
+            <div style={{ width: '60px', height: '1px', backgroundColor: 'var(--color-border)' }} />
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <circle cx="5" cy="5" r="4" stroke="var(--color-terracotta)" strokeWidth="1" fill="none" />
+            </svg>
+            <div style={{ width: '60px', height: '1px', backgroundColor: 'var(--color-border)' }} />
+          </div>
 
-        {/* Split layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
-          {/* Photo side */}
-          <motion.div
-            variants={slideInLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="lg:col-span-2 relative"
+          <p className="section-label mb-3">{t('principalMessage.sectionTitle')}</p>
+
+          <h2
+            id="principal-heading"
             style={{
-              aspectRatio: '3/4',
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+              fontWeight: 700,
+              color: 'var(--color-dark)',
+              lineHeight: 1.15,
+            }}
+          >
+            {t('principalMessage.heading')}
+          </h2>
+        </motion.div>
+
+        {/* ── Portrait — centered, zooms in ──────────── */}
+        <motion.div
+          className="flex flex-col items-center mb-12"
+          variants={zoomSlow}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          {/* Photo — circle */}
+          <div
+            className="relative overflow-hidden mb-5"
+            style={{
+              width: '160px',
+              height: '160px',
+              borderRadius: '50%',
               border: '1px solid var(--color-border)',
-              overflow: 'hidden',
             }}
           >
             {principal.imageSrc ? (
@@ -82,111 +79,94 @@ export default function PrincipalMessage() {
                 alt={principal.name}
                 fill
                 className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                sizes="160px"
               />
             ) : (
-              <div
-                className="w-full h-full flex items-center justify-center"
-                style={{ backgroundColor: 'var(--color-cream)' }}
-              >
-                <svg viewBox="0 0 80 80" fill="none" width="80" height="80">
-                  <circle cx="40" cy="30" r="16" fill="var(--color-border)" />
-                  <ellipse cx="40" cy="66" rx="24" ry="16" fill="var(--color-border)" />
-                </svg>
+              <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: 'var(--color-cream)' }}>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', fontWeight: 300, color: 'var(--color-muted)' }}>
+                  {principal.name.charAt(0)}
+                </span>
               </div>
             )}
+          </div>
 
-            {/* Name overlay at bottom */}
-            <div
-              className="absolute bottom-0 left-0 right-0 p-5"
-              style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}
-            >
-              <p
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.1rem',
-                  fontWeight: 700,
-                  color: '#fff',
-                }}
-              >
-                {principal.name}
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.8rem',
-                  color: 'rgba(255,255,255,0.7)',
-                }}
-              >
-                {designation}
-              </p>
-            </div>
-          </motion.div>
+          {/* Thin vertical line */}
+          <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--color-border)' }} aria-hidden="true" />
 
-          {/* Message side */}
-          <motion.div
-            variants={slideInRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="lg:col-span-3 flex flex-col justify-center p-8 lg:p-12"
+          {/* Name & designation */}
+          <div className="text-center mt-3">
+            <p style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-dark)' }}>
+              {principal.name}
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--color-muted)', marginTop: '2px' }}>
+              {designation}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ── Message — centered blockquote ────────────── */}
+        <motion.div
+          className="text-center"
+          variants={zoomSlow}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          {/* Opening quote mark */}
+          <div
+            aria-hidden="true"
             style={{
-              border: '1px solid var(--color-border)',
-              borderLeft: 'none',
-              backgroundColor: 'var(--color-bg)',
+              fontFamily: 'Georgia, serif',
+              fontSize: '4rem',
+              lineHeight: 0.6,
+              color: 'var(--color-border)',
+              marginBottom: '20px',
+              userSelect: 'none',
             }}
           >
-            {/* Opening quote mark */}
-            <div
-              aria-hidden="true"
-              style={{
-                fontFamily: 'Georgia, serif',
-                fontSize: '5rem',
-                lineHeight: 0.5,
-                color: 'var(--color-border)',
-                marginBottom: '24px',
-                userSelect: 'none',
-              }}
-            >
-              &ldquo;
-            </div>
+            &ldquo;
+          </div>
 
-            <blockquote
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(0.9rem, 1.5vw, 1.05rem)',
-                color: 'var(--color-dark)',
-                lineHeight: 1.9,
-                fontStyle: 'italic',
-                marginBottom: '2rem',
-              }}
-            >
-              {message}
-            </blockquote>
+          <blockquote
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(0.95rem, 1.6vw, 1.1rem)',
+              color: 'var(--color-dark)',
+              lineHeight: 2,
+              fontStyle: 'italic',
+              maxWidth: '620px',
+              margin: '0 auto 2rem',
+            }}
+          >
+            {message}
+          </blockquote>
 
-            {/* Signature line */}
-            <div className="flex items-center gap-4">
-              <div
-                style={{
-                  width: '40px',
-                  height: '1px',
-                  backgroundColor: 'var(--color-terracotta)',
-                }}
-                aria-hidden="true"
-              />
-              <span
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  color: 'var(--color-dark)',
-                }}
-              >
-                {principal.name}
-              </span>
-            </div>
-          </motion.div>
-        </div>
+          {/* Signature line */}
+          <div className="flex items-center justify-center gap-3">
+            <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--color-terracotta)' }} aria-hidden="true" />
+            <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-dark)', letterSpacing: '0.05em' }}>
+              {principal.name}
+            </span>
+            <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--color-terracotta)' }} aria-hidden="true" />
+          </div>
+        </motion.div>
+
+        {/* Bottom decorative */}
+        <motion.div
+          variants={zoomIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex justify-center mt-14"
+          aria-hidden="true"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <div style={{ width: '1px', height: '30px', backgroundColor: 'var(--color-border)' }} />
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <circle cx="5" cy="5" r="4" stroke="var(--color-terracotta)" strokeWidth="1" fill="none" />
+            </svg>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

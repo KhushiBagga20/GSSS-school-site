@@ -83,3 +83,31 @@ export const modalVariants: Variants = {
     transition: { duration: 0.2 },
   },
 };
+
+export const zoomIn: Variants = {
+  hidden: { opacity: 0, scale: 0.88 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+export const zoomDelayed = (delay: number): Variants => ({
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
+  },
+});
+
+export const zoomSlow: Variants = {
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+

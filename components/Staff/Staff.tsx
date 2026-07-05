@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n';
 import { staffMembers } from '@/data/school';
-import { fadeUp, fadeUpStaggered } from '@/lib/motionVariants';
+import { zoomIn, zoomDelayed } from '@/lib/motionVariants';
+
 
 export default function Staff() {
   const { lang, t } = useLanguage();
@@ -16,94 +17,70 @@ export default function Staff() {
       style={{ backgroundColor: 'var(--color-bg)' }}
       aria-labelledby="staff-heading"
     >
-      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '1200px' }}>
-        <motion.p
-          className="section-label mb-3"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {t('staff.sectionTitle')}
-        </motion.p>
+      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '900px' }}>
 
-        <motion.h2
-          id="staff-heading"
-          className="mb-4"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
-            fontWeight: 700,
-            color: 'var(--color-dark)',
-          }}
-        >
-          {t('staff.heading')}
-        </motion.h2>
-
+        {/* ── Centered heading ────────────────────────── */}
         <motion.div
-          variants={fadeUp}
+          className="text-center mb-10"
+          variants={zoomIn}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          style={{
-            width: '60px',
-            height: '1px',
-            backgroundColor: 'var(--color-terracotta)',
-            marginBottom: '1.5rem',
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Staff stats */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex flex-wrap gap-4 mb-12"
+          viewport={{ once: true, margin: '-80px' }}
         >
-          {[
-            t('staff.totalStaff'),
-            t('staff.maleStaff'),
-            t('staff.femaleStaff'),
-          ].map((stat) => (
-            <span
-              key={stat}
-              className="px-3 py-1 text-xs font-medium"
-              style={{
-                border: '1px solid var(--color-border)',
-                color: 'var(--color-muted)',
-                fontFamily: 'var(--font-body)',
-                letterSpacing: '0.05em',
-              }}
-            >
-              {stat}
-            </span>
-          ))}
+          {/* Decorative triangle */}
+          <div className="flex items-center justify-center gap-3 mb-6" aria-hidden="true">
+            <div style={{ width: '50px', height: '1px', backgroundColor: 'var(--color-border)' }} />
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <polygon points="6,1 11,11 1,11" stroke="var(--color-terracotta)" strokeWidth="1" fill="none" />
+            </svg>
+            <div style={{ width: '50px', height: '1px', backgroundColor: 'var(--color-border)' }} />
+          </div>
+
+          <p className="section-label mb-3">{t('staff.sectionTitle')}</p>
+
+          <h2
+            id="staff-heading"
+            className="mb-4"
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+              fontWeight: 700,
+              color: 'var(--color-dark)',
+              lineHeight: 1.15,
+            }}
+          >
+            {t('staff.heading')}
+          </h2>
+
+          {/* Stats */}
+          <div className="flex items-center justify-center gap-6 mt-4">
+            {[t('staff.totalStaff'), t('staff.maleStaff'), t('staff.femaleStaff')].map((stat, i) => (
+              <span key={stat} className="flex items-center gap-2" style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--color-muted)' }}>
+                {i > 0 && <span style={{ color: 'var(--color-border)' }}>·</span>}
+                {stat}
+              </span>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Staff grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+        {/* ── Staff — centered grid with zoom ─────────── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 mt-14" style={{ maxWidth: '560px', margin: '3.5rem auto 0' }}>
           {staffMembers.map((member, i) => (
             <motion.div
               key={member.id}
-              custom={i}
-              variants={fadeUpStaggered}
+              variants={zoomDelayed(i * 0.1)}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
-              className="group flex flex-col items-center text-center"
+              viewport={{ once: true, margin: '-30px' }}
+              className="flex flex-col items-center text-center"
             >
-              {/* Avatar */}
+              {/* Avatar — circle */}
               <div
-                className="relative mb-4 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1"
+                className="relative mb-4 overflow-hidden"
                 style={{
-                  width: '100px',
-                  height: '100px',
+                  width: '90px',
+                  height: '90px',
+                  borderRadius: '50%',
                   border: '1px solid var(--color-border)',
                 }}
               >
@@ -113,7 +90,7 @@ export default function Staff() {
                     alt={member.name}
                     fill
                     className="object-cover"
-                    sizes="100px"
+                    sizes="90px"
                   />
                 ) : (
                   <div
@@ -121,50 +98,29 @@ export default function Staff() {
                     style={{ backgroundColor: 'var(--color-cream)' }}
                     aria-hidden="true"
                   >
-                    <svg viewBox="0 0 60 60" fill="none" width="40" height="40">
-                      <circle cx="30" cy="22" r="10" fill="var(--color-border)" />
-                      <ellipse cx="30" cy="50" rx="18" ry="12" fill="var(--color-border)" />
-                    </svg>
+                    <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 300, color: 'var(--color-muted)' }}>
+                      {(lang === 'hi' ? member.nameHi : member.name).charAt(0)}
+                    </span>
                   </div>
                 )}
               </div>
 
+              {/* Thin accent line */}
+              <div style={{ width: '20px', height: '1px', backgroundColor: 'var(--color-terracotta)', marginBottom: '8px' }} aria-hidden="true" />
+
               {/* Name */}
-              <p
-                className="mb-1"
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  color: 'var(--color-dark)',
-                  lineHeight: 1.3,
-                }}
-              >
+              <p className="mb-1" style={{ fontFamily: 'var(--font-heading)', fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-dark)', lineHeight: 1.3 }}>
                 {lang === 'hi' ? member.nameHi : member.name}
               </p>
 
               {/* Designation */}
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.75rem',
-                  color: 'var(--color-muted)',
-                }}
-              >
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.72rem', color: 'var(--color-muted)' }}>
                 {lang === 'hi' ? member.designationHi : member.designation}
               </p>
 
               {/* Subject */}
               {member.subject && (
-                <p
-                  className="mt-1"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.7rem',
-                    color: 'var(--color-olive)',
-                    fontWeight: 600,
-                  }}
-                >
+                <p className="mt-1" style={{ fontFamily: 'var(--font-body)', fontSize: '0.68rem', color: 'var(--color-olive)', fontWeight: 600 }}>
                   {lang === 'hi' ? member.subjectHi : member.subject}
                 </p>
               )}
