@@ -108,6 +108,8 @@ export interface Amenity {
   id: string;
   icon: string;
   titleKey: string;
+  descKey: string;
+  category: 'benefits' | 'facilities';
   value: string;
   valueHi: string;
 }

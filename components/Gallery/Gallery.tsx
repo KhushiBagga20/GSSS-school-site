@@ -46,11 +46,12 @@ function EventDetailModal({
         animate="visible"
         exit="exit"
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden rounded-xl"
         style={{
           maxWidth: '700px',
           backgroundColor: 'var(--color-bg)',
           border: '1px solid var(--color-border)',
+          borderRadius: '12px',
         }}
       >
         {/* Image */}
@@ -116,10 +117,10 @@ export default function Gallery() {
     <section
       id="gallery"
       className="section-padding"
-      style={{ backgroundColor: '#fff' }}
+      style={{ backgroundColor: 'transparent' }}
       aria-labelledby="gallery-heading"
     >
-      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '1100px' }}>
+      <div className="mx-auto px-3 md:px-5" style={{ maxWidth: '1100px' }}>
 
         {/* ── Centered heading ───────────────────────────── */}
         <motion.div
@@ -141,7 +142,7 @@ export default function Gallery() {
             id="gallery-heading"
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+              fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
               fontWeight: 700,
               color: 'var(--color-dark)',
               lineHeight: 1.15,
@@ -163,8 +164,13 @@ export default function Gallery() {
               viewport={{ once: true, margin: '-40px' }}
               whileHover={{ scale: 1.03 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="group relative overflow-hidden text-left"
-              style={{ aspectRatio: '4/3', border: '1px solid var(--color-border)' }}
+              className="group relative overflow-hidden text-left rounded-xl"
+              style={{
+                aspectRatio: '4/3',
+                border: '1px solid var(--color-border)',
+                borderRadius: '12px',
+                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
+              }}
               aria-label={`View: ${t(event.titleKey as Parameters<typeof t>[0])}`}
             >
               <Image

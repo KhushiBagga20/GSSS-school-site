@@ -103,25 +103,95 @@
     "close": "Close"
   },
   "amenities": {
-    "sectionTitle": "Amenities",
-    "heading": "School Infrastructure",
-    "library": {
-      "title": "Library"
+    "sectionTitle": "Benefits & Facilities",
+    "heading": "Our Initiatives & Student Facilities",
+    "quality_education": {
+      "title": "Quality Education",
+      "desc": "Academic excellence focused on modern learning methodologies."
     },
-    "playground": {
-      "title": "Playground"
+    "trained_teachers": {
+      "title": "Experienced Teachers",
+      "desc": "Dedicated, qualified educators steering student success."
     },
-    "classrooms": {
-      "title": "Classrooms"
+    "free_edu_c8": {
+      "title": "Free Education",
+      "desc": "No tuition fee for students up to Class 8 under RTE."
     },
-    "electricity": {
-      "title": "Electricity"
+    "free_books_c10": {
+      "title": "Free Textbooks",
+      "desc": "Complimentary course books distributed to all students up to Class 10."
     },
-    "water": {
-      "title": "Drinking Water"
+    "free_uniforms": {
+      "title": "Free Uniforms",
+      "desc": "Complimentary sets of school uniforms provided to students."
     },
-    "sanitation": {
-      "title": "Sanitation"
+    "free_stitching": {
+      "title": "Free Stitching",
+      "desc": "Financial support for stitching uniforms for middle/high schoolers."
+    },
+    "free_hrtc_travel": {
+      "title": "Free Bus Travel",
+      "desc": "Free commuting for all school students in state transport buses."
+    },
+    "mid_day_meal": {
+      "title": "Mid-day Meals",
+      "desc": "Nutritious and hygienic hot cooked meals served daily."
+    },
+    "free_school_bags": {
+      "title": "Free School Bags",
+      "desc": "Complimentary durable backpacks distributed to eligible grades."
+    },
+    "computer_edu": {
+      "title": "Computer Education",
+      "desc": "Modern IT literacy, computer science lessons, and practical training."
+    },
+    "playway_edu": {
+      "title": "Play-way Learning",
+      "desc": "Engaging and activity-based sports integration in the syllabus."
+    },
+    "holistic_dev": {
+      "title": "Holistic Development",
+      "desc": "Focus on academics, moral values, physical fitness, and mental growth."
+    },
+    "child_psychology": {
+      "title": "Child Psychology",
+      "desc": "Teaching methods customized to student learning speeds and emotional needs."
+    },
+    "cultural_values": {
+      "title": "Culture & Values",
+      "desc": "Instilling deep respect for Indian heritage, ethics, and moral values."
+    },
+    "library_facility": {
+      "title": "Library Access",
+      "desc": "A rich collection of academic, reference, and story books."
+    },
+    "sports_equipment": {
+      "title": "Sports Equipment",
+      "desc": "A wide range of sports gear and facilities for physical activities."
+    },
+    "fear_free_edu": {
+      "title": "Fear-Free Environment",
+      "desc": "A supportive, stress-free classroom atmosphere where students speak freely."
+    },
+    "scholarships": {
+      "title": "Scholarships",
+      "desc": "Financial aid and benefits for SC, ST, OBC, and BPL families."
+    },
+    "vocational_edu": {
+      "title": "Vocational Education",
+      "desc": "Job-oriented skill training preparing students for future careers."
+    },
+    "healthcare": {
+      "title": "Healthcare Facilities",
+      "desc": "Regular health checkups, wellness support, and first-aid kits."
+    },
+    "drinking_water": {
+      "title": "Clean Drinking Water",
+      "desc": "Safe, filtered, and easily accessible drinking water stations."
+    },
+    "school_transport": {
+      "title": "School Transport",
+      "desc": "Vehicle facilities to assist students traveling from distant areas."
     }
   },
   "staff": {

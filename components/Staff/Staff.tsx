@@ -6,22 +6,38 @@ import { useLanguage } from '@/lib/i18n';
 import { staffMembers } from '@/data/school';
 import { zoomIn, zoomDelayed } from '@/lib/motionVariants';
 
+const designationRank: Record<string, number> = {
+  'principal': 1,
+  'vice principal': 2,
+  'lecturer': 3,
+  'tgt': 4,
+  'ot': 5,
+  'dm': 6,
+  'teacher': 7,
+  'vocational': 8,
+};
 
 export default function Staff() {
   const { lang, t } = useLanguage();
+
+  const sortedStaff = [...staffMembers].sort((a, b) => {
+    const rankA = designationRank[a.designation.trim().toLowerCase()] || 99;
+    const rankB = designationRank[b.designation.trim().toLowerCase()] || 99;
+    return rankA - rankB;
+  });
 
   return (
     <section
       id="staff"
       className="section-padding"
-      style={{ backgroundColor: 'var(--color-bg)' }}
+      style={{ backgroundColor: 'transparent' }}
       aria-labelledby="staff-heading"
     >
-      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '900px' }}>
+      <div className="mx-auto px-3 md:px-5" style={{ maxWidth: '1200px' }}>
 
         {/* ── Centered heading ────────────────────────── */}
         <motion.div
-          className="text-center mb-10"
+          className="text-center mb-5"
           variants={zoomIn}
           initial="hidden"
           whileInView="visible"
@@ -43,7 +59,7 @@ export default function Staff() {
             className="mb-4"
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+              fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
               fontWeight: 700,
               color: 'var(--color-dark)',
               lineHeight: 1.15,
@@ -64,8 +80,8 @@ export default function Staff() {
         </motion.div>
 
         {/* ── Staff — centered grid with zoom ─────────── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 mt-14" style={{ maxWidth: '560px', margin: '3.5rem auto 0' }}>
-          {staffMembers.map((member, i) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-8 gap-y-10 mt-14" style={{ margin: '3.5rem auto 0' }}>
+          {sortedStaff.map((member, i) => (
             <motion.div
               key={member.id}
               variants={zoomDelayed(i * 0.1)}

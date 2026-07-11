@@ -39,7 +39,6 @@ export default function Header() {
       threshold: [0.1, 0.3, 0.5],
     });
 
-    // Observe after a tick to ensure DOM is ready
     const timer = setTimeout(() => {
       allSectionIds.forEach((id) => {
         const el = document.getElementById(id);
@@ -65,8 +64,12 @@ export default function Header() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const textColor = isDark ? '#fff' : 'var(--color-dark)';
-  const mutedColor = isDark ? 'rgba(255,255,255,0.6)' : 'var(--color-muted)';
+  // Always-visible pill: dark translucent on hero, frosted cream on light bg
+  const textColor   = isDark ? '#fff'                      : 'var(--color-dark)';
+  const mutedColor  = isDark ? 'rgba(255,255,255,0.5)'     : 'rgba(100,90,80,0.6)';
+  const pillBg      = isDark ? 'rgba(10,10,10,0.45)'       : 'rgba(253,250,246,0.95)';
+  const pillBorder  = isDark ? 'rgba(255,255,255,0.15)'    : 'rgba(200,185,170,0.7)';
+  const dividerCol  = isDark ? 'rgba(255,255,255,0.18)'    : 'rgba(200,185,170,0.8)';
 
   return (
     <>
@@ -79,28 +82,34 @@ export default function Header() {
       >
         <div
           className="mx-auto flex items-center justify-between px-6 md:px-10"
-          style={{
-            maxWidth: '1400px',
-            height: '72px',
-            pointerEvents: 'auto',
-          }}
+          style={{ maxWidth: '1400px', height: '72px', pointerEvents: 'auto' }}
         >
           {/* Left spacer */}
           <div />
 
-          {/* Right controls: Language Toggle + Hamburger */}
-          <div className="flex items-center gap-4">
+          {/* Right controls — always-visible pill */}
+          <div
+            className="flex items-center gap-1 px-3 py-1.5 transition-all duration-300"
+            style={{
+              backgroundColor: pillBg,
+              border: `1px solid ${pillBorder}`,
+              borderRadius: '999px',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+            }}
+          >
             {/* Language Toggle */}
             <div
-              className="flex items-center gap-1"
+              className="flex items-center gap-0.5 pr-3"
               role="group"
               aria-label="Language selector"
+              style={{ borderRight: `1px solid ${dividerCol}` }}
             >
               {(['en', 'hi'] as const).map((l) => (
                 <button
                   key={l}
                   onClick={() => setLang(l)}
-                  className="px-2 py-1 text-xs font-semibold tracking-wide transition-all duration-200"
+                  className="px-2 py-0.5 text-xs font-semibold tracking-wide transition-all duration-200"
                   style={{
                     fontFamily: 'var(--font-body)',
                     color: lang === l ? textColor : mutedColor,
@@ -122,8 +131,8 @@ export default function Header() {
               aria-expanded={menuOpen}
               style={{ color: textColor }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <line x1="4" y1="7"  x2="20" y2="7"  stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
                 <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
                 <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
               </svg>

@@ -2,24 +2,24 @@
 
 /* ─── Design Tokens ─────────────────────────────────────────── */
 @theme inline {
-  /* Colors — off-white, terracotta, olive */
-  --color-bg:          #FAF7F2;
-  --color-cream:       #F5EDE3;
-  --color-terracotta:  #C8845E;
+  --color-bg: #FDFAF6;
+  --color-cream: #F5EDE3;
+  --color-terracotta: #C8845E;
   --color-terracotta-dark: #A86B45;
-  --color-olive:       #6B7F5E;
+  --color-olive: #6B7F5E;
   --color-olive-light: #8FA07E;
-  --color-dark:        #1E1E1E;
-  --color-muted:       #7A7468;
-  --color-border:      #E2DCD4;
+  --color-dark: #1E1E1E;
+  --color-muted: #7A7468;
+  --color-border: #E2DCD4;
 
-  /* Fonts */
   --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body:    'Source Sans 3', 'Helvetica Neue', sans-serif;
+  --font-body: 'Source Sans 3', 'Helvetica Neue', sans-serif;
 }
 
 /* ─── Base Reset ─────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -28,8 +28,15 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* ─── Background: Indian flag inspired saffron + white + green blur ─── */
 body {
-  background-color: var(--color-bg);
+  /* Fixed radial blobs: saffron top-right, sage bottom-left, neutral cream center */
+  background-color: #FDFAF6;
+  background-image:
+    radial-gradient(ellipse 70% 55% at 100% 0%, rgba(255, 140, 20, 0.38) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 0% 100%, rgba(19, 120, 8, 0.30) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 35% at 50% 50%, rgba(253, 248, 240, 0.85) 0%, transparent 75%);
+  background-attachment: fixed;
   color: var(--color-dark);
   font-family: var(--font-body);
   line-height: 1.7;
@@ -39,7 +46,12 @@ body {
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   line-height: 1.2;
   color: var(--color-dark);
@@ -69,46 +81,59 @@ img {
   max-width: 100%;
 }
 
-/* ─── Focus States ──────────────────────────────────────────── */
+/* ─── Focus States ───────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-terracotta);
   outline-offset: 3px;
 }
 
-/* ─── Scrollbar ─────────────────────────────────────────────── */
+/* ─── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-bg);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted);
 }
 
-/* ─── Selection ─────────────────────────────────────────────── */
+/* ─── Selection ──────────────────────────────────────────────── */
 ::selection {
   background: var(--color-terracotta);
   color: #fff;
 }
 
-/* ─── Utility: Section Padding ──────────────────────────────── */
+/* ─── Utility: Section Padding ───────────────────────────────── */
 .section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
 @media (min-width: 768px) {
   .section-padding {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 }
 
-/* ─── Utility: Section Label ────────────────────────────────── */
+/* ─── Utility: Section Divider ───────────────────────────────── */
+.section-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, var(--color-border) 25%, var(--color-border) 75%, transparent 100%);
+  margin: 0 auto;
+  max-width: 900px;
+  opacity: 0.5;
+}
+
+/* ─── Utility: Section Label ─────────────────────────────────── */
 .section-label {
   font-family: var(--font-body);
   font-size: 0.7rem;
@@ -118,21 +143,31 @@ img {
   color: var(--color-terracotta);
 }
 
-/* ─── Lightbox ──────────────────────────────────────────────── */
+/* ─── Utility: Uniform Section Heading ───────────────────────── */
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1.15;
+}
+
+/* ─── Lightbox ───────────────────────────────────────────────── */
 .lightbox-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0, 0, 0, 0.92);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* ─── Gallery Carousel Hide Scrollbar ───────────────────────── */
+/* ─── Gallery Carousel Hide Scrollbar ────────────────────────── */
 .gallery-scroll::-webkit-scrollbar {
   display: none;
 }
+
 .gallery-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -28,14 +28,14 @@ export default function Vision() {
       id="vision"
       ref={sectionRef}
       className="section-padding overflow-hidden"
-      style={{ backgroundColor: 'var(--color-bg)' }}
+      style={{ backgroundColor: 'transparent' }}
       aria-labelledby="vision-heading"
     >
-      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '1100px' }}>
+      <div className="mx-auto px-3 md:px-5" style={{ maxWidth: '1100px' }}>
 
         {/* ── Centered heading ──────────────────────── */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-10"
           variants={zoomIn}
           initial="hidden"
           whileInView="visible"
@@ -46,7 +46,7 @@ export default function Vision() {
             id="vision-heading"
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
               fontWeight: 700,
               color: 'var(--color-dark)',
               lineHeight: 1.15,
@@ -65,7 +65,7 @@ export default function Vision() {
         </motion.div>
 
         {/* ── Mission / Vision — split horizontal ───── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
           {[
             {
               label: t('vision.mission'),
@@ -86,13 +86,13 @@ export default function Vision() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
-              className="relative p-10 md:p-12"
+              className="relative p-10 md:p-12 rounded-xl"
               style={{
-                borderLeft: `3px solid ${card.accent}`,
-                borderTop: '1px solid var(--color-border)',
-                borderBottom: '1px solid var(--color-border)',
-                borderRight: i === 0 ? 'none' : '1px solid var(--color-border)',
+                border: '1px solid var(--color-border)',
+                borderLeft: `4px solid ${card.accent}`,
                 backgroundColor: i === 0 ? 'var(--color-cream)' : '#fff',
+                borderRadius: '12px',
+                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
               }}
             >
               {/* Large background number */}
@@ -140,7 +140,7 @@ export default function Vision() {
 
         {/* ── Values infographic ────────────────────── */}
         {/* Desktop: horizontal timeline strip; Mobile: stacked */}
-        <div className="hidden md:flex items-stretch gap-0">
+        <div className="hidden md:flex items-stretch gap-6">
           {visionValues.map((value, i) => {
             const pal = PALETTE[i];
             return (
@@ -150,14 +150,13 @@ export default function Vision() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-40px' }}
-                className="flex-1 flex flex-col relative"
+                className="flex-1 flex flex-col relative rounded-xl"
                 style={{
-                  borderTop: `3px solid ${pal.accent}`,
-                  borderLeft: '1px solid var(--color-border)',
-                  borderBottom: '1px solid var(--color-border)',
-                  borderRight: i === visionValues.length - 1 ? '1px solid var(--color-border)' : 'none',
+                  border: '1px solid var(--color-border)',
+                  borderTop: `4px solid ${pal.accent}`,
                   backgroundColor: pal.bg,
-                  minHeight: '320px',
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)',
                 }}
               >
                 {/* Top connector dot */}
@@ -210,13 +209,7 @@ export default function Vision() {
                     {t(value.descriptionKey as Parameters<typeof t>[0])}
                   </p>
 
-                  {/* Bottom icon */}
-                  <div className="mt-6 pt-4" style={{ borderTop: `1px solid ${pal.accent}22` }} aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      <rect x="1" y="1" width="18" height="18" stroke={pal.accent} strokeWidth="1" fill="none" strokeDasharray="3 3" />
-                      <circle cx="10" cy="10" r="3" fill={pal.accent} opacity="0.5" />
-                    </svg>
-                  </div>
+                  {/* Bottom icon — removed to keep cards compact */}
                 </div>
               </motion.div>
             );
@@ -224,7 +217,7 @@ export default function Vision() {
         </div>
 
         {/* Mobile: accordion-style stack */}
-        <div className="flex flex-col md:hidden gap-0">
+        <div className="flex flex-col md:hidden gap-4">
           {visionValues.map((value, i) => {
             const pal = PALETTE[i];
             return (
@@ -234,11 +227,13 @@ export default function Vision() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20px' }}
-                className="flex gap-6 p-6"
+                className="flex gap-6 p-6 rounded-xl"
                 style={{
-                  borderLeft: `3px solid ${pal.accent}`,
-                  borderBottom: '1px solid var(--color-border)',
+                  border: '1px solid var(--color-border)',
+                  borderLeft: `4px solid ${pal.accent}`,
                   backgroundColor: pal.bg,
+                  borderRadius: '12px',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
                 }}
               >
                 {/* Number column */}

@@ -13,10 +13,15 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
+        <hr className="section-divider" />
         <Vision />
+        <hr className="section-divider" />
         <Gallery />
+        <hr className="section-divider" />
         <Amenities />
+        <hr className="section-divider" />
         <Staff />
+        <hr className="section-divider" />
         <PrincipalMessage />
       </main>
       <Footer />

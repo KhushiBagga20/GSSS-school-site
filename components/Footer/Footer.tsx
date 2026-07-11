@@ -46,11 +46,11 @@ export default function Footer() {
       aria-label="School contact information and footer"
     >
       <div
-        className="mx-auto px-6 md:px-10 py-16"
+        className="mx-auto px-3 md:px-5 py-10"
         style={{ maxWidth: '1200px' }}
       >
         {/* Top grid */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 mb-12">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 mb-8">
           {/* School identity */}
           <div className="flex flex-col gap-4">
             <h2

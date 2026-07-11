@@ -16,10 +16,10 @@ export default function PrincipalMessage() {
     <section
       id="principal"
       className="section-padding"
-      style={{ backgroundColor: '#fff' }}
+      style={{ backgroundColor: 'transparent' }}
       aria-labelledby="principal-heading"
     >
-      <div className="mx-auto px-6 md:px-10" style={{ maxWidth: '1200px' }}>
+      <div className="mx-auto px-3 md:px-5" style={{ maxWidth: '1200px' }}>
         <motion.p
           className="section-label mb-3"
           variants={fadeUp}
@@ -39,7 +39,7 @@ export default function PrincipalMessage() {
           viewport={{ once: true }}
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
             fontWeight: 700,
             color: 'var(--color-dark)',
           }}
@@ -62,17 +62,19 @@ export default function PrincipalMessage() {
         />
 
         {/* Split layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
           {/* Photo side */}
           <motion.div
             variants={slideInLeft}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="lg:col-span-2 relative"
+            className="lg:col-span-2 relative rounded-2xl"
             style={{
               aspectRatio: '3/4',
               border: '1px solid var(--color-border)',
+              borderRadius: '16px',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
               overflow: 'hidden',
             }}
           >
@@ -129,11 +131,12 @@ export default function PrincipalMessage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="lg:col-span-3 flex flex-col justify-center p-8 lg:p-12"
+            className="lg:col-span-3 flex flex-col justify-center p-8 lg:p-12 rounded-2xl"
             style={{
               border: '1px solid var(--color-border)',
-              borderLeft: 'none',
               backgroundColor: 'var(--color-bg)',
+              borderRadius: '16px',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
             }}
           >
             {/* Opening quote mark */}
