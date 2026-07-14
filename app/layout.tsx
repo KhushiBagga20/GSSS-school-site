@@ -18,9 +18,9 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: 'GSSS Trilokpur | Government Senior Secondary School, Himachal Pradesh',
+  title: 'GMSSS Trilokpur | Government Model Senior Secondary School, Himachal Pradesh',
   description:
-    'Official website of Government Senior Secondary School, Trilokpur — serving the Surla region of Sirmaur, Himachal Pradesh since 1958. Classes VI to XII, Co-educational, HP State Board.',
+    'Official website of Government Model Senior Secondary School, Trilokpur — serving the Surla region of Sirmaur, Himachal Pradesh since 1958. Classes VI to XII, Co-educational, HP State Board.',
   keywords: [
     'GSSS Trilokpur',
     'Government Senior Secondary School Trilokpur',
@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     'school Trilokpur',
     'UDISE 02101003204',
   ],
-  authors: [{ name: 'GSSS Trilokpur' }],
+  authors: [{ name: 'GMSSS Trilokpur' }],
   openGraph: {
-    title: 'GSSS Trilokpur | Government Senior Secondary School',
+    title: 'GMSSS Trilokpur | Government Model Senior Secondary School',
     description:
-      'Official website of GSSS Trilokpur, Himachal Pradesh. Serving students from Class VI to XII since 1958.',
-    url: 'https://gsss-trilokpur.vercel.app',
-    siteName: 'GSSS Trilokpur',
+      'Official website of GMSSS Trilokpur, Himachal Pradesh. Serving students from Class VI to XII since 1958.',
+    url: 'https://gmsss-trilokpur.vercel.app',
+    siteName: 'GMSSS Trilokpur',
     locale: 'en_IN',
     type: 'website',
     images: [
@@ -43,21 +43,21 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'GSSS Trilokpur — Government Senior Secondary School',
+        alt: 'GMSSS Trilokpur — Government Model Senior Secondary School',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GSSS Trilokpur | Government Senior Secondary School',
-    description: 'Official website of GSSS Trilokpur, Sirmaur, Himachal Pradesh.',
+    title: 'GMSSS Trilokpur | Government Model Senior Secondary School',
+    description: 'Official website of GMSSS Trilokpur, Sirmaur, Himachal Pradesh.',
     images: ['/og-image.png'],
   },
   robots: {
     index: true,
     follow: true,
   },
-  metadataBase: new URL('https://gsss-trilokpur.vercel.app'),
+  metadataBase: new URL('https://gmsss-trilokpur.vercel.app'),
 };
 
 export default function RootLayout({

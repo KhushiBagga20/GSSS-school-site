@@ -40,8 +40,8 @@ export default function Hero() {
         aria-hidden="true"
       >
         <Image
-          src="/images/hero-bg.png"
-          alt="GSSS Trilokpur school building with Himalayan mountains"
+          src="/images/hero-bg.jpg"
+          alt="GSSS Trilokpur school building front entrance"
           fill
           className="object-cover"
           priority
