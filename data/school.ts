@@ -338,7 +338,7 @@ export const staffMembers: StaffMember[] = [
     designationHi: 'टीजीटी आर्ट्स',
     subject: 'Arts',
     subjectHi: 'कला',
-    imageSrc: null,
+    imageSrc: '/images/staff/vivek.png',
   },
   {
     id: 's15',
@@ -378,7 +378,7 @@ export const staffMembers: StaffMember[] = [
     designationHi: 'टीजीटी',
     subject: 'Hindi',
     subjectHi: 'हिंदी',
-    imageSrc: null,
+    imageSrc: '/images/staff/manju.png',
   },
   {
     id: 's19',
