@@ -510,6 +510,16 @@ export const staffMembers: StaffMember[] = [
     subjectHi: 'मिड-डे मील',
     imageSrc: null,
   },
+  {
+    id: 's32',
+    name: 'Prempal',
+    nameHi: 'प्रेमपाल',
+    designation: 'Lab Attendant',
+    designationHi: 'प्रयोगशाला परिचर',
+    subject: 'Lab',
+    subjectHi: 'प्रयोगशाला',
+    imageSrc: '/images/staff/prempal.png',
+  },
 
 ];
 
