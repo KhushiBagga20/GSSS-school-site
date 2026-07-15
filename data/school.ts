@@ -508,7 +508,7 @@ export const staffMembers: StaffMember[] = [
     designationHi: 'मिड-डे मील वर्कर',
     subject: 'Mid-day Meal',
     subjectHi: 'मिड-डे मील',
-    imageSrc: null,
+    imageSrc: '/images/staff/mamta.png',
   },
   {
     id: 's32',
