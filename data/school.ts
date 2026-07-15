@@ -438,7 +438,7 @@ export const staffMembers: StaffMember[] = [
     designationHi: 'व्यावसायिक',
     subject: 'Healthcare',
     subjectHi: 'स्वास्थ्य सेवा',
-    imageSrc: null,
+    imageSrc: '/images/staff/nidhi.png',
   },
   {
     id: 's25',
