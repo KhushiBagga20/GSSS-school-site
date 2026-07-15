@@ -418,7 +418,7 @@ export const staffMembers: StaffMember[] = [
     designationHi: 'अध्यापक',
     subject: 'Computer',
     subjectHi: 'कम्प्यूटर',
-    imageSrc: null,
+    imageSrc: '/images/staff/naveen.png',
   },
   {
     id: 's23',
