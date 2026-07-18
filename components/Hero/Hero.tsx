@@ -29,7 +29,7 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative flex items-end overflow-hidden"
+      className="relative flex items-center justify-center overflow-hidden"
       style={{ minHeight: '100svh' }}
       aria-label="Hero section"
     >
@@ -46,7 +46,7 @@ export default function Hero() {
           className="object-cover"
           priority
           sizes="100vw"
-          style={{ objectPosition: 'center 30%' }}
+          style={{ objectPosition: 'center 20%' }}
         />
         {/* Dark overlay for text readability */}
         <div
@@ -55,11 +55,11 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Content — left aligned, bottom area */}
+      {/* Content — centred */}
       <motion.div
-        className="relative z-10 px-6 md:px-10 pb-20 md:pb-28 pt-40"
+        className="relative z-10 w-full px-6 md:px-16 py-10 flex flex-col items-center text-center"
         style={{
-          maxWidth: '800px',
+          maxWidth: '900px',
           opacity: contentOpacity,
           y: contentY,
         }}
@@ -117,21 +117,6 @@ export default function Hero() {
           {t('hero.tagline')}
         </motion.p>
 
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            color: '#FAF7F2',
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
-            maxWidth: '520px',
-            lineHeight: 1.7,
-          }}
-        >
-          {t('hero.description')}
-        </motion.p>
       </motion.div>
 
       {/* Scroll down indicator — centered at bottom */}

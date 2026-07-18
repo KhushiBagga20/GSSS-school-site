@@ -328,7 +328,7 @@ export const staffMembers: StaffMember[] = [
     designationHi: 'अध्यापक',
     subject: 'Computer Science',
     subjectHi: 'कम्प्यूटर विज्ञान',
-    imageSrc: null,
+    imageSrc: '/images/staff/mohammed.png',
   },
   {
     id: 's14',
@@ -488,7 +488,7 @@ export const staffMembers: StaffMember[] = [
     designationHi: 'एसएमसी अध्यक्ष',
     subject: '',
     subjectHi: '',
-    imageSrc: null,
+    imageSrc: '/images/staff/pawan.png',
   },
   {
     id: 's30',

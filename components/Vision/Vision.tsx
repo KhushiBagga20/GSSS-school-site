@@ -88,7 +88,9 @@ export default function Vision() {
               viewport={{ once: true, margin: '-60px' }}
               className="relative p-10 md:p-12 rounded-xl"
               style={{
-                border: '1px solid var(--color-border)',
+                borderTop: '1px solid var(--color-border)',
+                borderRight: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
                 borderLeft: `4px solid ${card.accent}`,
                 backgroundColor: i === 0 ? 'var(--color-cream)' : '#fff',
                 borderRadius: '12px',
@@ -139,8 +141,7 @@ export default function Vision() {
         </div>
 
         {/* ── Values infographic ────────────────────── */}
-        {/* Desktop: horizontal timeline strip; Mobile: stacked */}
-        <div className="hidden md:flex items-stretch gap-6">
+        <div className="hidden md:flex items-stretch gap-5">
           {visionValues.map((value, i) => {
             const pal = PALETTE[i];
             return (
@@ -150,13 +151,14 @@ export default function Vision() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-40px' }}
-                className="flex-1 flex flex-col relative rounded-xl"
+                className="flex-1 relative rounded-xl"
                 style={{
                   border: '1px solid var(--color-border)',
                   borderTop: `4px solid ${pal.accent}`,
                   backgroundColor: pal.bg,
                   borderRadius: '12px',
                   boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)',
+                  aspectRatio: '1 / 1',
                 }}
               >
                 {/* Top connector dot */}
@@ -166,10 +168,9 @@ export default function Vision() {
                   aria-hidden="true"
                 />
 
-                <div className="p-8 flex flex-col h-full">
-                  {/* Big number */}
+                <div className="p-8 h-full flex flex-col justify-between">
+                  {/* Number label */}
                   <div
-                    className="mb-6 inline-block"
                     style={{
                       fontFamily: 'var(--font-heading)',
                       fontSize: '0.7rem',
@@ -177,15 +178,13 @@ export default function Vision() {
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
                       color: pal.accent,
-                      borderBottom: `1px solid ${pal.accent}`,
-                      paddingBottom: '4px',
+                      display: 'inline-block',
                     }}
                   >
                     {value.number}
                   </div>
 
                   <h3
-                    className="mb-4"
                     style={{
                       fontFamily: 'var(--font-heading)',
                       fontSize: '1.15rem',
@@ -198,23 +197,21 @@ export default function Vision() {
                   </h3>
 
                   <p
-                    className="flex-1"
                     style={{
                       fontFamily: 'var(--font-body)',
                       fontSize: '0.85rem',
                       color: 'var(--color-muted)',
-                      lineHeight: 1.8,
+                      lineHeight: 1.75,
                     }}
                   >
                     {t(value.descriptionKey as Parameters<typeof t>[0])}
                   </p>
-
-                  {/* Bottom icon — removed to keep cards compact */}
                 </div>
               </motion.div>
             );
           })}
         </div>
+
 
         {/* Mobile: accordion-style stack */}
         <div className="flex flex-col md:hidden gap-4">
@@ -229,7 +226,9 @@ export default function Vision() {
                 viewport={{ once: true, margin: '-20px' }}
                 className="flex gap-6 p-6 rounded-xl"
                 style={{
-                  border: '1px solid var(--color-border)',
+                  borderTop: '1px solid var(--color-border)',
+                  borderRight: '1px solid var(--color-border)',
+                  borderBottom: '1px solid var(--color-border)',
                   borderLeft: `4px solid ${pal.accent}`,
                   backgroundColor: pal.bg,
                   borderRadius: '12px',

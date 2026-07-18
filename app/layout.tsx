@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Source_Sans_3 } from 'next/font/google';
+import { Playfair_Display, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/lib/i18n';
 
@@ -10,9 +10,9 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
-const sourceSans = Source_Sans_3({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['300', '400', '500', '600'],
   variable: '--font-body',
   display: 'swap',
 });
@@ -66,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
       <body>
         <LanguageProvider>{children}</LanguageProvider>
       </body>
